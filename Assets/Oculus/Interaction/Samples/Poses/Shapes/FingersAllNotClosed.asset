@@ -1,3 +1,54 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:27218406e3a1719bbae22ffb7431fed81e33ab19f91b5443d3a1e67ba40c1d60
-size 1194
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfe1df7ed391a24fbe2a2d275e81b06, type: 3}
+  m_Name: FingersAllNotClosed
+  m_EditorClassIdentifier: 
+  _shapeName: All Fingers Not Closed
+  _thumbFeatureConfigs:
+    _value: []
+  _indexFeatureConfigs:
+    _value:
+    - _mode: 1
+      _feature: 0
+      _state: 2
+    - _mode: 0
+      _feature: 1
+      _state: 3
+  _middleFeatureConfigs:
+    _value:
+    - _mode: 1
+      _feature: 0
+      _state: 2
+    - _mode: 0
+      _feature: 1
+      _state: 3
+  _ringFeatureConfigs:
+    _value:
+    - _mode: 1
+      _feature: 0
+      _state: 2
+    - _mode: 0
+      _feature: 1
+      _state: 3
+  _pinkyFeatureConfigs:
+    _value:
+    - _mode: 1
+      _feature: 0
+      _state: 2
+    - _mode: 0
+      _feature: 1
+      _state: 3
+  _thumbFeatureStates: 
+  _indexFeatureStates: 
+  _middleFeatureStates: 
+  _ringFeatureStates: 
+  _pinkyFeatureStates: 

@@ -20,8 +20,15 @@ public class SimpleShoot : MonoBehaviour
     [Tooltip("Bullet Speed")] [SerializeField] private float shotPower = 10000000000f;
     [Tooltip("Casing Ejection Speed")] [SerializeField] private float ejectPower = 1000000000f;
 
+    // private GameObject mainCamera;
+    [SerializeField] float range = 10000f;
+
     public AudioSource source;
     public AudioClip fireSound;
+    public AudioClip emptySound;
+    public int shotsRemaining = 1;
+    public RaycastHit hit;
+    public string hitObjectTag;
 
     void Start()
     {
@@ -33,31 +40,49 @@ public class SimpleShoot : MonoBehaviour
     }
 
     public void PullTrigger() {
-        gunAnimator.SetTrigger("Fire");
+        if (shotsRemaining > 0) {
+            gunAnimator.SetTrigger("Fire");
+        }
     }
 
 
     //This function creates the bullet behavior
     void Shoot()
     {
-        source.PlayOneShot(fireSound);
+        if (shotsRemaining > 0) {
+            source.PlayOneShot(fireSound);
         
-        if (muzzleFlashPrefab)
-        {
-            //Create the muzzle flash
-            GameObject tempFlash;
-            tempFlash = Instantiate(muzzleFlashPrefab, barrelLocation.position, barrelLocation.rotation);
+            if (muzzleFlashPrefab)
+            {
+                //Create the muzzle flash
+                GameObject tempFlash;
+                tempFlash = Instantiate(muzzleFlashPrefab, barrelLocation.position, barrelLocation.rotation, this.transform);
 
-            //Destroy the muzzle flash effect
-            Destroy(tempFlash, destroyTimer);
+                //Destroy the muzzle flash effect
+                Destroy(tempFlash, destroyTimer);
+            }
+
+            //cancels if there's no bullet prefeb
+            if (!bulletPrefab)
+            { return; }
+
+            // Create a bullet and add force on it in direction of the barrel
+            GameObject bullet = Instantiate(
+                bulletPrefab,
+                barrelLocation.position,
+                barrelLocation.rotation);
+            bullet.GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
+            Camera mainCamera = bullet.GetComponent<Camera>();
+            Ray rayFrom = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+            mainCamera.enabled = false;
+            RaycastHit hit;
+            if (Physics.Raycast(rayFrom, out hit, range)) {
+                hitObjectTag = hit.rigidbody.tag;
+            }
+            shotsRemaining--;
+        } else {
+            source.PlayOneShot(emptySound);
         }
-
-        //cancels if there's no bullet prefeb
-        if (!bulletPrefab)
-        { return; }
-
-        // Create a bullet and add force on it in direction of the barrel
-        Instantiate(bulletPrefab, barrelLocation.position, barrelLocation.rotation).GetComponent<Rigidbody>().AddForce(barrelLocation.forward * shotPower);
 
     }
 
@@ -78,6 +103,10 @@ public class SimpleShoot : MonoBehaviour
 
         //Destroy casing after X seconds
         Destroy(tempCasing, destroyTimer);
+    }
+
+    public void ResetAmmo() {
+        shotsRemaining = 1;
     }
 
 }

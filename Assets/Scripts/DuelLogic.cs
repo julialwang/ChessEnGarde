@@ -12,11 +12,15 @@ public class DuelLogic : MonoBehaviour
     private bool inCountdown;
     private bool holstered;
     private float timeLeft;
-    private Vector3 direction;
+    private Vector3 directionR;
+    private Vector3 directionL;
     private TMP_Text Timer;
     private TMP_Text Label;
     private SimpleShoot Gun;
     private int shotsRemaining;
+
+    public bool shotsFired;
+    public bool enemyHit;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,8 @@ public class DuelLogic : MonoBehaviour
         timeLeft = 3.0f;
         inCountdown = true;
         holstered = false;
+        shotsFired = false;
+        enemyHit = false;
         Timer = this.transform.FindDeepChild("TimerText").gameObject.GetComponent<TMP_Text>();
         Label = this.transform.FindDeepChild("TimerLabel").gameObject.GetComponent<TMP_Text>();
         Gun = GameObject.Find("M1911 Handgun_Model").GetComponent<SimpleShoot>();
@@ -33,14 +39,20 @@ public class DuelLogic : MonoBehaviour
     void Update()
     {
         UnityEngine.XR.InputDevice handR = InputDevices.GetDeviceAtXRNode(XRNode.RightHand);
+        UnityEngine.XR.InputDevice handL = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
         handR.TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotR);
-        direction = rotR * Vector3.forward;
-        DetermineHolstered();
+        handL.TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rotL);
+        handR.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out bool rightGripPressed);
+        handL.TryGetFeatureValue(UnityEngine.XR.CommonUsages.gripButton, out bool leftGripPressed);
+        directionR = rotR * Vector3.forward;
+        directionL = rotL * Vector3.forward;
+        DetermineHolstered(leftGripPressed, rightGripPressed);
         ChangeDuelPrompt();
     }
 
-    void DetermineHolstered() {
-        if (direction.y >= -1.0f && direction.y < -0.8f) {
+    void DetermineHolstered(bool leftHeld, bool rightHeld) {
+        if ((directionL.y >= -1.0f && directionL.y < -0.8f && leftHeld) || 
+            (directionR.y >= -1.0f && directionR.y < -0.8f && rightHeld)) {
             holstered = true;
         } else {
             holstered = false;
@@ -52,10 +64,14 @@ public class DuelLogic : MonoBehaviour
             Debug.Log("Enemy killed.");
             Timer.text = " ";
             Label.text = "You killed the enemy!";
+            shotsFired = true;
+            enemyHit = true;
         } else if (!inCountdown && timeLeft <= 0 && Gun.shotsRemaining <= 0 && !Gun.hitObjectTag.Equals("Enemy")) {
             Debug.Log("Enemy hit.");
             Timer.text = " ";
             Label.text = "You missed the enemy!";
+            shotsFired = true;
+            enemyHit = false;
         } else if (inCountdown && holstered && timeLeft <= 0 && Gun.shotsRemaining > 0) {
             Debug.Log("Waiting for shot.");
             inCountdown = false;

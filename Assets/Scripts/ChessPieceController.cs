@@ -2,30 +2,80 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.XR;
 
 public class ChessPieceController : MonoBehaviour
 {
     public Rigidbody rb;
-    private float gridSize = 3.0f;
+    private float gridSize = 3f;
 
     // Update is called once per frame
     void Update()
     {
         rb.transform.position = new Vector3(
-            RoundToNearestGrid(rb.transform.position.x),
-            RoundToNearestGrid(rb.transform.position.y),
-            RoundToNearestGrid(rb.transform.position.z));
+            RoundX(rb.transform.position.x),
+            rb.transform.position.y,
+            RoundZ(rb.transform.position.z));
     }
 
-    private float RoundToNearestGrid(float pos)
+    private float RoundX(float pos)
     {
-        float xDiff = pos % gridSize;
-        pos -= xDiff;
-        if (xDiff > (gridSize / 2))
+        if (pos <= -9.5)
         {
-            pos += gridSize;
+            return -11;
+        } else if (pos <= -6.5 && pos > -9.5)
+        {
+            return -8;
+        } else if (pos <= -3.5 && pos > -6.5)
+        {
+            return -5;
+        } else if (pos <= -0.5 && pos > -3.5)
+        {
+            return -2;
+        } else if (pos <= 2.5 && pos > -0.5)
+        {
+            return 1;
+        } else if (pos <= 5.5 && pos > 2.5)
+        {
+            return 4;
+        } else if (pos <= 8.5 && pos > 5.5)
+        {
+            return 7;
+        } // else, greater than 8.5
+        return 10;
+    }
+
+    private float RoundZ(float pos)
+    {
+        if (pos <= -9)
+        {
+            return -10.5f;
         }
-        return pos;
+        else if (pos <= -6 && pos > -9)
+        {
+            return -7.5f;
+        }
+        else if (pos <= -3 && pos > -6)
+        {
+            return -4.5f;
+        }
+        else if (pos <= 0 && pos > -3)
+        {
+            return -1.5f;
+        }
+        else if (pos <= 3 && pos > 0)
+        {
+            return 1.5f;
+        }
+        else if (pos <= 6 && pos > 3)
+        {
+            return 4.5f;
+        }
+        else if (pos <= 9 && pos > 6)
+        {
+            return 7.5f;
+        } // else, greater than 8.5
+        return 10.5f;
     }
 }

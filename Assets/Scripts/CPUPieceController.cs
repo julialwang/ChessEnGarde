@@ -5,15 +5,11 @@ using UnityEngine;
 public class CPUPieceController : MonoBehaviour
 {
     public static bool blackTurn = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
+
+
 }

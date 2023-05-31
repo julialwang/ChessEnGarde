@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Title Screen.unity
     guid: 7dfaa8ffe34db48c89e68402ca05b625
+  - enabled: 1
+    path: Assets/Scenes/Duel.unity
+    guid: 9931b6ce3abf6da468d735d069553a78
+  - enabled: 0
+    path: Assets/1911/Scenes/Demo_1911.unity
+    guid: 51e808997b2bbed429f6b0fbe1ba465d
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 631f27a3a21d842b088c1d73a9d390ae, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d9d3877f0abcf4c9faab848504f54921, type: 2}

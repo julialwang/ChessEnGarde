@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 
 public class ChessPieceController : MonoBehaviour
 {
     public Rigidbody rb;
-    private float gridSize = 3f;
+    public static bool whiteMove = true;
+    public static GameObject enemy;
+    public string nextScene;
 
     // Update is called once per frame
     void Update()
@@ -42,7 +45,7 @@ public class ChessPieceController : MonoBehaviour
         } else if (pos <= 8.5 && pos > 5.5)
         {
             return 7;
-        } // else, greater than 8.5
+        }
         return 10;
     }
 
@@ -75,7 +78,20 @@ public class ChessPieceController : MonoBehaviour
         else if (pos <= 9 && pos > 6)
         {
             return 7.5f;
-        } // else, greater than 8.5
+        }
         return 10.5f;
+    }
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Black"))
+        {
+            enemy = other.gameObject;
+            SceneManager.LoadScene(nextScene);
+            if (DuelLogic.enemyHit)
+            {
+                Destroy(enemy);
+            }
+        }
     }
 }

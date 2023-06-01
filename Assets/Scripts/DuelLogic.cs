@@ -18,9 +18,10 @@ public class DuelLogic : MonoBehaviour
     private TMP_Text Label;
     private SimpleShoot Gun;
     private int shotsRemaining;
+    public string nextScene;
 
     public bool shotsFired;
-    public bool enemyHit;
+    public static bool enemyHit;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +67,7 @@ public class DuelLogic : MonoBehaviour
             Label.text = "You killed the enemy!";
             shotsFired = true;
             enemyHit = true;
+            SceneManager.LoadScene(nextScene);
         } else if (!inCountdown && timeLeft <= 0 && Gun.shotsRemaining <= 0 && !Gun.hitObjectTag.Equals("Enemy")) {
             Debug.Log("Enemy hit.");
             Timer.text = " ";

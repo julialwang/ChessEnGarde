@@ -9,10 +9,15 @@ using UnityEngine.XR;
 public class ChessPieceController : MonoBehaviour
 {
     public Rigidbody rb;
-    public static bool whiteMove = true;
     public static GameObject enemy;
     public string nextScene;
 
+    private Vector3 currPos;
+
+    private void Start()
+    {
+        currPos = rb.transform.position;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -20,6 +25,7 @@ public class ChessPieceController : MonoBehaviour
             RoundX(rb.transform.position.x),
             rb.transform.position.y,
             RoundZ(rb.transform.position.z));
+
     }
 
     private float RoundX(float pos)
@@ -93,5 +99,15 @@ public class ChessPieceController : MonoBehaviour
                 Destroy(enemy);
             }
         }
+    }
+
+    public void EvaluateMovement()
+    {
+        if (Vector3.Equals(rb.transform.position, currPos))
+        {
+            return;
+        }
+        GameObject[] whitePieces = GameObject.FindGameObjectsWithTag("White");
+        GameState.playerTurn = false;
     }
 }

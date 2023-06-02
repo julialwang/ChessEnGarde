@@ -1892,6 +1892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d19abb31fa8dfb646b254f1eb25e2c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTurn: 1
+  enemyDuelPieceName: 
 --- !u!4 &877142816
 Transform:
   m_ObjectHideFlags: 0
@@ -4355,19 +4357,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 877142815}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
       objectReference: {fileID: 877142814}
     - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
       propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: setPlayerTurn
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameState, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GameState, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 89031475202024126, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}
+      propertyPath: m_FirstHoverEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3605a6e4fde7d594aa08481185959edb, type: 3}

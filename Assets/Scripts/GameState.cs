@@ -2,13 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class GameState : MonoBehaviour
 {
-
-    public static bool playerTurn;
-    // Start is called before the first frame update
-    void Start()
+    public static GameState Instance { get; private set; }
+    public bool playerTurn = true;
+    public string enemyDuelPieceName = null;
+    private void Awake()
     {
-        playerTurn = false;
+        Instance = this;
+    }
+
+    public void setPlayerTurn(bool val) {
+        Instance.playerTurn = val;
+    }
+
+    public void setEnemyDuelPieceName(string val) {
+        Instance.setEnemyDuelPieceName(val);
     }
 }

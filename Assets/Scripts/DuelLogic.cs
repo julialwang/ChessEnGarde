@@ -60,6 +60,10 @@ public class DuelLogic : MonoBehaviour
         }
     }
 
+    void FinishDuel() {
+        SceneManager.LoadScene(nextScene);
+    }
+
     void ChangeDuelPrompt() {
         if (!inCountdown && timeLeft <= 0 && Gun.shotsRemaining <= 0 && Gun.hitObjectTag.Equals("Enemy")) {
             Debug.Log("Enemy killed.");
@@ -67,7 +71,7 @@ public class DuelLogic : MonoBehaviour
             Label.text = "You killed the enemy!";
             shotsFired = true;
             enemyHit = true;
-            SceneManager.LoadScene(nextScene);
+            Invoke("FinishDuel", 1.5f);
         } else if (!inCountdown && timeLeft <= 0 && Gun.shotsRemaining <= 0 && !Gun.hitObjectTag.Equals("Enemy")) {
             Debug.Log("Enemy hit.");
             Timer.text = " ";

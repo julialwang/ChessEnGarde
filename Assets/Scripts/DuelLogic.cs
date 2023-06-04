@@ -66,32 +66,36 @@ public class DuelLogic : MonoBehaviour
 
     void ChangeDuelPrompt() {
         if (!inCountdown && timeLeft <= 0 && Gun.shotsRemaining <= 0 && Gun.hitObjectTag.Equals("Enemy")) {
-            Debug.Log("Enemy killed.");
+            // Debug.Log("Enemy killed.");
             Timer.text = " ";
             Label.text = "You killed the enemy!";
             shotsFired = true;
             enemyHit = true;
+            GameState.fightingEnemy = false;
+            if (!GameState.deletedObjects.Contains(GameState.currentEnemyName)) {
+                GameState.deletedObjects.Add(GameState.currentEnemyName);
+            }
             Invoke("FinishDuel", 1.5f);
         } else if (!inCountdown && timeLeft <= 0 && Gun.shotsRemaining <= 0 && !Gun.hitObjectTag.Equals("Enemy")) {
-            Debug.Log("Enemy hit.");
+            // Debug.Log("Enemy hit.");
             Timer.text = " ";
             Label.text = "You missed the enemy!";
             shotsFired = true;
             enemyHit = false;
         } else if (inCountdown && holstered && timeLeft <= 0 && Gun.shotsRemaining > 0) {
-            Debug.Log("Waiting for shot.");
+            // Debug.Log("Waiting for shot.");
             inCountdown = false;
             Timer.text = string.Format("{0:0}", 0);
             Label.text = "SHOOT!";
             timeLeft = 0f;
         } else if (inCountdown && timeLeft > 0f && holstered && Gun.shotsRemaining > 0) {
-            Debug.Log("Counting down.");
+            // Debug.Log("Counting down.");
             Label.text = "Counting down...";
             timeLeft -= Time.deltaTime;
             float seconds = Mathf.CeilToInt(timeLeft % 60);
             Timer.text = string.Format("{0:0}", seconds);
         } else if (inCountdown && !holstered) {
-            Debug.Log("Resetting countdown.");
+            // Debug.Log("Resetting countdown.");
             ResetCountdown();
         }
     }

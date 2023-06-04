@@ -90,14 +90,17 @@ public class ChessPieceController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Black"))
+        if (other.gameObject.CompareTag("Black") && !GameState.fightingEnemy)
         {
             enemy = other.gameObject;
+            GameState.currentEnemyName = enemy.name;
+            Debug.Log("COLLIDED WITH " + GameState.currentEnemyName);
+            GameState.fightingEnemy = true;
             SceneManager.LoadScene(nextScene);
-            if (DuelLogic.enemyHit)
-            {
-                Destroy(enemy);
-            }
+            // if (DuelLogic.enemyHit)
+            // {
+            //     Destroy(enemy);
+            // }
         }
     }
 
